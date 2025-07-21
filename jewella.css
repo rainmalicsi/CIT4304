@@ -1,4 +1,4 @@
-body {
+.rd-body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/054/311/652/large/tranquil-tropical-paradise-scene-starfish-and-seashells-rest-on-a-white-sandy-beach-with-sea-gentle-turquoise-waves-summer-background-copy-space-for-your-text-video.jpg");
@@ -148,6 +148,6 @@ li {
 }
 .main-action-button:hover {
   background-color: #777777; /* Lighter grey on hover */
-  transform: translateY(-2px);
+   transform: scale(1.05) translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
