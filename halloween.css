@@ -1,0 +1,113 @@
+body.halloween-body {
+  background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), #2b0f3f;
+    background-image:   url('images/Gemini_Generated_Image_u30r3zu30r3zu30r\ \(1\).png');
+  background-size: 1800px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: #ffcc00;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header {
+  background-color: #000000;
+  border-bottom: 5px solid orange;
+  padding: 10px;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  margin: 0 auto;
+  height: 70px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li a {
+  font-family: 'Creepster', cursive;
+  background-color: #ff6600;
+  padding: 8px 16px;
+  color: black;
+  text-decoration: none;
+  border: 2px solid #fff;
+  box-shadow: 3px 3px #ffcc00;
+  transition: 0.2s ease;
+  /* text spacing */
+    letter-spacing: 1px;
+}
+
+.nav-links li a:hover {
+  background-color: #cc3300;
+  color: white;
+}
+
+.nav-links li.active a {
+  font-weight: bold;
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00; /* Underline for active link */
+  background-color: rgb(130, 43, 0);
+}
+
+.site-logo-center {
+  width: 60px;
+  height: auto;
+  margin-left: -265px;
+  display: block;
+}
+
+.primary-button {
+  background: #cc00cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+}
+
+.main-content {
+  max-width: 800px;
+  margin: 60px auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 4px dashed #ff6600;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 8px 8px 0px #cc00cc;
+}
+
+.main-title {
+  font-family: 'Creepster', cursive;
+  font-size: 48px;
+  color: #ff3300;
+}
+
+.description-text {
+  font-size: 20px;
+  color: #ffda62;
+  margin: 20px 0;
+  font-family: 'Creepster', cursive;
+}
+
+.main-action-button {
+  background: #ff6600;;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 3px 3px black;
+  font-family: 'Creepster', cursive;
+  letter-spacing: 2px;
+}

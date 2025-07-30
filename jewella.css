@@ -38,6 +38,7 @@
   color: #2c2c2c;
   border-bottom: 2px solid #2c2c2c; /* Underline for active link */
 }
+
 .nav-links {
   list-style: none;
   margin: 0;
@@ -46,6 +47,7 @@
   display: flex;
   gap: 35px;
 }
+
 li {
   padding-top: 20px;
 }

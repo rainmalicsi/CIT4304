@@ -1,9 +1,12 @@
 .vintage-body {
   margin: 0;
-  background-image: #f7f2d2 url('images/retrobg.jpg');
-  /* bg no repeat */
+  background-image: url('images/Gemini_Generated_Image_u2xfcau2xfcau2xf.png');
+  background-size: 800px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
   font-family: 'Press Start 2P', cursive;
-  color: #000;
+  color: #212121; /* Dark Grey Text */
   text-align: center;
 }
 
@@ -11,36 +14,36 @@
   max-width: 800px;
   margin: 60px auto;
   padding: 40px;
-  border: 4px dashed #ff00ff;
-  background: #ffffff;
-  box-shadow: 10px 10px 0px #ff00ff;
+  border: 4px dashed #607D8B; /* Darker Blue-Grey Border */
+  background-color: rgba(207, 216, 220, 0.8); /* Lighter Blue-Grey with Transparency */
+  box-shadow: 10px 10px 0px #757575; /* Medium Grey Shadow */
 }
 
 h1 {
   font-size: 24px;
-  text-shadow: 2px 2px #ff0000;
+  text-shadow: 2px 2px #90A4AE; /* Blue-Grey Text Shadow */
 }
 
 .retro-button {
-  background-color: #00ffff;
-  color: #000;
+  background-color: #CFD8DC; /* Very Light Blue-Grey */
+  color: #212121; /* Dark Grey Text */
   padding: 12px 24px;
   font-family: 'Press Start 2P', cursive;
-  border: 2px solid #000;
-  box-shadow: 4px 4px #ff00ff;
+  border: 2px solid #212121; /* Dark Grey Border */
+  box-shadow: 4px 4px 0 #607D8B; /* Darker Blue-Grey Shadow */
   cursor: pointer;
   margin-top: 20px;
 }
 .retro-button:hover {
-  background-color: #ff00ff;
-  color: #fff;
+  background-color: #607D8B; /* Darker Blue-Grey */
+  color: #E0E0E0; /* Very Light Grey */
 }
 
 .vintage-header {
-  background-color: #ffcc00;
+  background-color: #90A4AE; /* Blue-Grey Header */
   padding: 15px 0;
-  border-bottom: 4px dashed #ff00ff;
-  box-shadow: 0 8px 0 #00ffff;
+  border-bottom: 4px dashed #607D8B; /* Darker Blue-Grey Border */
+  box-shadow: 0 8px 0 #CFD8DC; /* Very Light Blue-Grey Shadow */
 }
 
 .navbar-90s {
@@ -56,7 +59,7 @@ h1 {
 .nav-links-90s {
   list-style: none;
   display: flex;
-  gap: 15px;
+  gap: 25px;
   padding: 0;
   margin: 0;
 }
@@ -64,45 +67,145 @@ h1 {
 .nav-links-90s li a {
   text-decoration: none;
   font-family: 'Press Start 2P', cursive;
-  color: #000000;
-  background-color: #00ffff;
+  color: #1c1a1a; /* Dark Grey Text */
+  /* background-color: #CFD8DC; Very Light Blue-Grey */
   padding: 8px 12px;
-  border: 2px solid #000;
+  /* border: 2px solid #212121; Dark Grey Border */
   text-transform: uppercase;
-  font-size: 8px;
-  box-shadow: 3px 3px 0 #ff00ff;
+  font-size: 10px;
+  box-shadow: 3px 3px 0 #607D8B; /* Darker Blue-Grey Shadow */
   transition: 0.2s;
 }
 
 .nav-links-90s li a:hover {
-  background-color: #ff00ff;
-  color: #fff;
-  box-shadow: 3px 3px 0 #00ffff;
+  background-color: #607D8B; /* Darker Blue-Grey */
+  color: #E0E0E0; /* Very Light Grey */
+  box-shadow: 3px 3px 0 #90A4AE; /* Blue-Grey Shadow */
+}
+
+.nav-links-90s li.active-90s a {
+  background-color: #757575; /* Medium Grey Active */
+  color: #E0E0E0; /* Very Light Grey */
+  box-shadow: 3px 3px 0 #424242; /* Medium Dark Grey Shadow */
 }
 
 .site-logo-center {
   display: block;
   width: 60px;
   height: auto;
-  filter: grayscale(100%) contrast(150%);
-  margin: 0 -130px;
+  filter: grayscale(100%) contrast(150%); /* Keep the existing filter for a retro effect */
 }
 
 .retro-button-header {
   font-family: 'Press Start 2P', cursive;
   font-size: 10px;
-  background-color: #00ffff;
-  color: #000;
-  border: 2px solid #000;
+  background-color: #CFD8DC; /* Very Light Blue-Grey */
+  color: #212121; /* Dark Grey Text */
+  border: 2px solid #212121; /* Dark Grey Border */
   padding: 10px 18px;
   cursor: pointer;
-  box-shadow: 3px 3px 0 #ff00ff;
+  box-shadow: 3px 3px 0 #607D8B; /* Darker Blue-Grey Shadow */
   transition: 0.2s;
 }
 
 .retro-button-header:hover {
-  background-color: #ff00ff;
-  color: #fff;
-  box-shadow: 3px 3px 0 #00ffff;
+  background-color: #607D8B; /* Darker Blue-Grey */
+  color: #E0E0E0; /* Very Light Grey */
+  box-shadow: 3px 3px 0 #90A4AE; /* Blue-Grey Shadow */
 }
 
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(224, 224, 224, 0.3); /* Very Light Grey Overlay */
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .navbar-90s {
+    flex-direction: column; /* Stack logo, nav, and button vertically */
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+
+  .site-logo-center {
+    margin-bottom: 15px; /* Add space below the logo */
+    width: 50px; /* Slightly reduce logo size */
+  }
+
+  .nav-links-90s {
+    flex-direction: column; /* Stack nav links vertically */
+    width: 100%; /* Make links take full width */
+    gap: 8px; /* Reduce gap between stacked links */
+    margin-bottom: 15px; /* Space below the nav links */
+  }
+
+  .nav-links-90s li {
+    width: 100%; /* Make each list item take full width */
+  }
+
+  .nav-links-90s li a {
+    font-size: 9px; /* Slightly reduce nav link font size */
+    padding: 10px; /* Adjust padding for stacked links */
+    display: block; /* Make links block-level for full-width click area */
+    text-align: center; /* Center the text in stacked links */
+  }
+
+  .retro-button-header {
+    width: 80%; /* Make button wider */
+    max-width: 200px; /* Limit max width of button */
+    font-size: 12px; /* Slightly increase button font size for readability */
+  }
+
+  .container {
+    margin: 30px 15px; /* Reduce top/bottom margin, add side margin */
+    padding: 20px; /* Reduce padding */
+  }
+
+  h1 {
+    font-size: 20px; /* Reduce heading size */
+  }
+
+  p {
+    font-size: 14px; /* Ensure paragraph text is readable */
+  }
+}
+
+/* Smaller Smartphones (e.g., max-width 480px) */
+@media (max-width: 480px) {
+  .vintage-header {
+    padding: 10px 0; /* Smaller header padding */
+  }
+
+  .site-logo-center {
+    width: 45px; /* Further reduce logo size */
+    margin-bottom: 10px;
+  }
+
+  .nav-links-90s li a {
+    font-size: 8px; /* Further reduce nav link font size */
+    padding: 8px;
+  }
+
+  .retro-button-header {
+    font-size: 10px; /* Further reduce button font size */
+    padding: 8px 15px;
+  }
+
+  .container {
+    margin: 20px 10px; /* Tighter margins for very small screens */
+    padding: 15px; /* Tighter padding */
+  }
+
+  h1 {
+    font-size: 18px; /* Smallest heading size */
+  }
+
+  p {
+    font-size: 12px; /* Smallest paragraph size */
+  }
+
+  /* Adjust background size for very small screens if it looks too large/busy */
+  .vintage-body {
+    background-size: 400px; /* Halve the background image size to make it less overwhelming */
+  }
+}

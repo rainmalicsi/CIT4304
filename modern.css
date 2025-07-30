@@ -1,0 +1,227 @@
+.modern-body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/038/971/864/non_2x/ai-generated-vintage-suitcase-hipster-hat-camera-and-passport-on-wooden-deck-tropical-sea-beach-and-palm-three-in-background-summer-holiday-traveling-concept-design-banner-with-copyspace-photo.jpg');
+    color: #333333;
+    background-repeat: no-repeat;
+    background-size: cover;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.modern-header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modern-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modern-nav-links {
+    list-style: none;
+    margin: 15px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.modern-nav-link {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 600;
+    font-size: 1em;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.modern-nav-link:hover {
+    color: #007bff;
+    transform: translateY(-2px);
+}
+
+.modern-nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    transition: width 0.3s ease-in-out;
+}
+
+.modern-nav-link:hover::after {
+    width: 80%;
+}
+
+.modern-primary-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    letter-spacing: 0.5px;
+    margin-top: 15px;
+    width: 90%;
+    max-width: 250px;
+}
+
+.modern-primary-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.modern-site-logo-center {
+    display: block;
+    margin: 15px auto;
+}
+
+.modern-main-content {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: rgba(234, 237, 238, 0.629);
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.modern-main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2em;
+    color: #2c2c2c;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.02);
+    letter-spacing: -0.5px;
+}
+
+.modern-description-text {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 30px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modern-main-action-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 90%;
+    max-width: 300px;
+}
+
+.modern-main-action-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.35);
+}
+
+@media (min-width: 768px) {
+    .modern-navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 30px;
+    }
+
+    .modern-nav-links {
+        flex-direction: row;
+        margin: 0;
+        gap: 35px;
+        width: auto;
+    }
+
+    .modern-nav-link {
+        padding: 0;
+        text-align: left;
+        font-size: 0.95em;
+    }
+
+    .modern-nav-link::after {
+        left: 0;
+        transform: translateX(0);
+        width: 0;
+    }
+
+    .modern-nav-link:hover::after {
+        width: 100%;
+    }
+
+    .modern-primary-button {
+        margin-top: 0;
+        width: auto;
+        max-width: none;
+        padding: 10px 25px;
+        font-size: 0.9em;
+    }
+
+    .modern-site-logo-center {
+        margin: 0;
+    }
+
+    .modern-main-content {
+        padding: 100px 30px;
+    }
+
+    .modern-main-title {
+        font-size: 3.5em;
+        margin-bottom: 25px;
+    }
+
+    .modern-description-text {
+        font-size: 1.1em;
+        line-height: 1.7;
+        margin-bottom: 50px;
+    }
+
+    .modern-main-action-button {
+        padding: 16px 40px;
+        font-size: 1.1em;
+        width: auto;
+        max-width: none;
+    }
+}
+
+@media (min-width: 1024px) {
+}
