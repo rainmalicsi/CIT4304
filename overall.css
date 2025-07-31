@@ -6,6 +6,13 @@ body.halloween-body {
   padding: 0;
 }
 
+.holiday-active {
+  background: #e36b2f;
+  color: #000000;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 .main-header {
   background-color: #120b14;
   border-bottom: 4px solid #4a2e31;
