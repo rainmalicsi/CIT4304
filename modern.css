@@ -1,29 +1,31 @@
-.modern-body {
+/* ... (Your existing CSS from overall.css) ... */
+
+.serene-body {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
-    background-image: url('https://static.vecteezy.com/system/resources/previews/038/971/864/non_2x/ai-generated-vintage-suitcase-hipster-hat-camera-and-passport-on-wooden-deck-tropical-sea-beach-and-palm-three-in-background-summer-holiday-traveling-concept-design-banner-with-copyspace-photo.jpg');
-    color: #333333;
-    background-repeat: no-repeat;
+    font-family: 'Lato', sans-serif;
+    background-image: url('https://wallpapers.com/images/featured/travel-background-we1aqvt6zacj99uk.jpg');
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333333;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.modern-header {
-    background-color: #ffffff;
-    padding: 20px 0;
-    position: relative;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    min-height: 50px;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
-.modern-navbar {
+.serene-header {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.serene-navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +36,25 @@
     box-sizing: border-box;
 }
 
-.modern-nav-links {
+.serene-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #1A535C;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.serene-site-logo {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    fill: #1A535C;
+}
+
+.serene-nav-links {
     list-style: none;
     margin: 15px 0;
     padding: 0;
@@ -44,23 +64,23 @@
     width: 100%;
 }
 
-.modern-nav-link {
+.serene-nav-link {
     text-decoration: none;
     color: #555555;
     font-weight: 600;
     font-size: 1em;
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
-    padding: 10px 0;
+    padding: 8px 0;
     text-align: center;
 }
 
-.modern-nav-link:hover {
-    color: #007bff;
+.serene-nav-link:hover {
+    color: #FF6B6B;
     transform: translateY(-2px);
 }
 
-.modern-nav-link::after {
+.serene-nav-link::after {
     content: '';
     position: absolute;
     width: 0;
@@ -68,154 +88,234 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #007bff;
+    background-color: #FF6B6B;
     transition: width 0.3s ease-in-out;
 }
 
-.modern-nav-link:hover::after {
-    width: 80%;
+.serene-nav-link:hover::after {
+    width: 70%;
 }
 
-.modern-primary-button {
-    background-color: #007bff;
+.serene-primary-button {
+    background: linear-gradient(45deg, #1A535C, #2C7A7B);
     color: #ffffff;
     border: none;
     padding: 12px 25px;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 0.9em;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(26, 83, 92, 0.3);
     letter-spacing: 0.5px;
     margin-top: 15px;
     width: 90%;
-    max-width: 250px;
+    max-width: 200px;
 }
 
-.modern-primary-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+.serene-primary-button:hover {
+    background: linear-gradient(45deg, #2C7A7B, #1A535C);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 83, 92, 0.4);
 }
 
-.modern-site-logo-center {
-    display: block;
-    margin: 15px auto;
-}
-
-.modern-main-content {
+.serene-main-content {
+    flex-grow: 1;
     text-align: center;
-    padding: 60px 20px;
-    max-width: 800px;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    background-color: rgba(234, 237, 238, 0.629);
-    border-radius: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
 
-.modern-main-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2em;
-    color: #2c2c2c;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.02);
+.serene-main-content::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, rgba(255,107,107,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.serene-main-content::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(44,122,123,0.1) 0%, rgba(44,122,123,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+
+.serene-main-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8em;
+    color: #1A535C;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
     letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
-.modern-description-text {
-    font-size: 1em;
-    line-height: 1.6;
+.serene-description-text {
+    font-size: 1.1em;
+    line-height: 1.7;
     color: #666666;
-    margin-bottom: 30px;
-    max-width: 650px;
+    margin-bottom: 40px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.modern-main-action-button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 14px 30px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.25);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    width: 90%;
-    max-width: 300px;
+.serene-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
 }
 
-.modern-main-action-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.35);
+.serene-action-button {
+    background: linear-gradient(45deg, #FF6B6B, #F7CAC9);
+    color: #ffffff;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+    width: 90%;
+    max-width: 280px;
+}
+
+.serene-action-button:hover {
+    background: linear-gradient(45deg, #F7CAC9, #FF6B6B);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+}
+
+.serene-action-button--outline {
+    background: transparent;
+    color: #1A535C;
+    border: 2px solid #1A535C;
+    box-shadow: none;
+}
+
+.serene-action-button--outline:hover {
+    background-color: #1A535C;
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(26, 83, 92, 0.2);
+}
+
+.serene-footer {
+    background-color: #1A535C;
+    color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+.serene-social-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.serene-social-icon {
+    color: #ffffff;
+    font-size: 1.5em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.serene-social-icon:hover {
+    color: #FF6B6B;
+    transform: translateY(-3px) scale(1.1);
 }
 
 @media (min-width: 768px) {
-    .modern-navbar {
+    .serene-navbar {
         flex-direction: row;
         justify-content: space-between;
         padding: 0 30px;
     }
 
-    .modern-nav-links {
-        flex-direction: row;
-        margin: 0;
-        gap: 35px;
-        width: auto;
+    .serene-logo-link {
+        margin-bottom: 0;
+        margin-right: 30px;
     }
 
-    .modern-nav-link {
+    .serene-nav-links {
+        flex-direction: row;
+        margin: 0;
+        gap: 40px;
+        width: auto;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .serene-nav-link {
         padding: 0;
         text-align: left;
         font-size: 0.95em;
     }
 
-    .modern-nav-link::after {
+    .serene-nav-link::after {
         left: 0;
         transform: translateX(0);
         width: 0;
     }
 
-    .modern-nav-link:hover::after {
+    .serene-nav-link:hover::after {
         width: 100%;
     }
 
-    .modern-primary-button {
+    .serene-primary-button {
         margin-top: 0;
+        margin-left: 35px;
         width: auto;
         max-width: none;
         padding: 10px 25px;
         font-size: 0.9em;
     }
 
-    .modern-site-logo-center {
-        margin: 0;
-    }
-
-    .modern-main-content {
+    .serene-main-content {
         padding: 100px 30px;
+        margin: 60px auto;
     }
 
-    .modern-main-title {
-        font-size: 3.5em;
+    .serene-main-title {
+        font-size: 3.8em;
         margin-bottom: 25px;
     }
 
-    .modern-description-text {
-        font-size: 1.1em;
-        line-height: 1.7;
+    .serene-description-text {
+        font-size: 1.2em;
+        line-height: 1.8;
         margin-bottom: 50px;
     }
 
-    .modern-main-action-button {
+    .serene-button-group {
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .serene-action-button {
         padding: 16px 40px;
         font-size: 1.1em;
         width: auto;
@@ -224,4 +324,382 @@
 }
 
 @media (min-width: 1024px) {
+    .serene-header {
+        padding: 20px 0;
+    }
+
+    .serene-main-title {
+        font-size: 4.5em;
+    }
+
+    .serene-description-text {
+        font-size: 1.3em;
+    }
+}
+
+/* Adjust serene-main-content for download page to ensure hero block takes full space */
+.serene-main-content.download-page-main {
+    padding: 0; /* Remove default padding as hero block has its own */
+    margin: 0; /* Remove default margin */
+    background-color: transparent; /* Make background transparent to show body background */
+    box-shadow: none; /* Remove box shadow */
+    border-radius: 0; /* Remove border-radius */
+    display: flex; /* Keep it as flex container */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - (var(--header-height, 80px) + var(--footer-height, 80px))); /* Adjust height to fill space between header and footer */
+}
+
+/* Define CSS variables for header/footer height if not already defined for dynamic calc */
+:root {
+    --header-height: 80px; /* Approximate height of your header */
+    --footer-height: 80px; /* Approximate height of your footer */
+}
+
+
+/* NEW STYLES FOR THE HERO BLOCK (These are largely the same as provided previously,
+   but ensure they are present in overall.css) */
+.serene-hero-block {
+    display: flex;
+    flex-direction: column; /* Stack content and graphics vertically on small screens */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 1200px; /* Adjust as needed for overall width */
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex-grow: 1; /* Allow hero block to take available space */
+    background-color: rgba(255, 255, 255, 0.9); /* Keep the background on the hero block */
+    border-radius: 15px; /* Keep the rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Keep the shadow */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ensure the floating elements are also on this hero block */
+.serene-hero-block::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, rgba(255,107,107,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.serene-hero-block::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(44,122,123,0.1) 0%, rgba(44,122,123,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+
+.serene-hero-content {
+    flex: 1;
+    margin-bottom: 40px;
+    max-width: 600px;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.serene-hero-tagline {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5em;
+    color: #333333;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.serene-hero-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+.serene-app-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.serene-app-link {
+    color: #1A535C;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-size: 0.95em;
+    padding: 5px 0;
+}
+
+.serene-app-link:hover {
+    color: #FF6B6B;
+}
+
+.serene-app-button {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.serene-app-button i {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+.app-store {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.app-store:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.google-play {
+    background-color: #4285F4;
+    color: #ffffff;
+}
+
+.google-play:hover {
+    background-color: #357AE8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(66, 133, 244, 0.2);
+}
+
+
+.serene-hero-graphics {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 350px;
+    margin-top: 40px;
+}
+
+.serene-browser-frame {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 90%;
+    height: 80%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.serene-browser-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.serene-browser-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.serene-browser-header .dot.red { background-color: #ff605c; }
+.serene-browser-header .dot.yellow { background-color: #ffbd44; }
+.serene-browser-header .dot.green { background-color: #00ca4e; }
+
+.serene-browser-content, .serene-phone-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 26px);
+    background-color: #f8f8f8;
+}
+
+.serene-placeholder-image {
+    width: 60%;
+    height: 60%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.serene-placeholder-image::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5zm11-8.5h-4l2-2h-5l2 2h-4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zM5 20V7h14v13H5z'/%3E%3C/svg%3E");
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
+}
+
+.serene-phone-frame {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 90%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.serene-phone-notch {
+    width: 40%;
+    height: 15px;
+    background-color: #333333;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin: 0 auto;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+.serene-phone-screen {
+    flex-grow: 1;
+    border-radius: 18px;
+    margin: 5px;
+    overflow: hidden;
+}
+
+.serene-phone-button {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    margin: 10px auto;
+}
+
+/* Media Queries for responsiveness */
+@media (min-width: 768px) {
+    /* ... (Your existing media queries for navbar, etc.) ... */
+
+    .serene-navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 30px;
+    }
+
+    .serene-logo-link {
+        margin-bottom: 0;
+        margin-right: 30px;
+    }
+
+    .serene-nav-links {
+        flex-direction: row;
+        margin: 0;
+        gap: 40px;
+        width: auto;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .serene-nav-link {
+        padding: 0;
+        text-align: left;
+        font-size: 0.95em;
+    }
+
+    .serene-nav-link::after {
+        left: 0;
+        transform: translateX(0);
+        width: 0;
+    }
+
+    .serene-nav-link:hover::after {
+        width: 100%;
+    }
+
+    .serene-primary-button {
+        margin-top: 0;
+        margin-left: 35px;
+        width: auto;
+        max-width: none;
+        padding: 10px 25px;
+        font-size: 0.9em;
+    }
+
+
+    /* Desktop layout for hero block */
+    .serene-hero-block {
+        flex-direction: row; /* Side-by-side on larger screens */
+        text-align: left;
+        padding: 80px 30px;
+        justify-content: space-between;
+    }
+
+    .serene-hero-content {
+        margin-bottom: 0;
+        padding-right: 50px; /* More space for the text */
+    }
+
+    .serene-hero-tagline {
+        font-size: 4.5em; /* Even larger on desktop */
+    }
+
+    .serene-app-buttons {
+        flex-direction: row; /* Buttons side-by-side on desktop */
+        align-items: center;
+    }
+
+    .serene-hero-graphics {
+        height: 450px; /* Taller graphics container */
+        margin-top: 0;
+        flex: 1;
+        position: relative;
+    }
+
+    .serene-browser-frame {
+        left: 0; /* Align browser to the left */
+        top: 20px;
+        width: 90%;
+        height: 70%;
+    }
+
+    .serene-phone-frame {
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        height: 80%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .serene-header {
+        padding: 20px 0;
+    }
+
+    .serene-hero-tagline {
+        font-size: 5.5em; /* Max size for tagline */
+    }
+
+    .serene-hero-description {
+        font-size: 1.2em;
+    }
 }
