@@ -1,0 +1,468 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Base Body Styles */
+.serene-body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background-image: url('https://wallpapers.com/images/featured/travel-background-we1aqvt6zacj99uk.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333333;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.serene-header {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.serene-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.serene-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #1A535C;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.serene-site-logo {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    fill: #1A535C;
+}
+
+.serene-logo-text {
+    color: #1A535C;
+}
+
+.serene-nav-links {
+    list-style: none;
+    margin: 15px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.serene-nav-link {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 600;
+    font-size: 1em;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.serene-nav-link:hover {
+    color: #FF6B6B;
+    transform: translateY(-2px);
+}
+
+.serene-nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FF6B6B;
+    transition: width 0.3s ease-in-out;
+}
+
+.serene-nav-link:hover::after {
+    width: 70%;
+}
+
+.serene-primary-button {
+    background: linear-gradient(45deg, #1A535C, #2C7A7B);
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(26, 83, 92, 0.3);
+    letter-spacing: 0.5px;
+    margin-top: 15px;
+    width: 90%;
+    max-width: 200px;
+}
+
+.serene-primary-button:hover {
+    background: linear-gradient(45deg, #2C7A7B, #1A535C);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 83, 92, 0.4);
+}
+
+.serene-red-button {
+    background: linear-gradient(45deg, #FF6B6B, #F7CAC9);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.serene-red-button:hover {
+    background: linear-gradient(45deg, #F7CAC9, #FF6B6B);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Main Wrapper for Content Sections */
+.serene-main-wrapper {
+    flex-grow: 1;
+    max-width: 1200px; /* Overall max width for main content */
+    margin: 40px auto; /* Center the main content */
+    padding: 0 20px; /* Add some horizontal padding */
+    box-sizing: border-box;
+}
+
+/* New Main Layout for two columns */
+.serene-main-layout {
+    display: flex;
+    flex-direction: column; /* Default to column for mobile */
+    gap: 40px; /* Space between columns */
+    padding: 60px 20px;
+    background-color: #ffffff; /* White background for the entire section */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden; /* For the pseudo-elements */
+}
+
+/* Pseudo-elements for the main layout background design */
+.serene-main-layout::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, rgba(255,107,107,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.serene-main-layout::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(44,122,123,0.1) 0%, rgba(44,122,123,0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+
+/* Left Content Styles */
+.serene-left-content {
+    flex: 1; /* Allows content to take available space */
+    text-align: center; /* Center content on mobile */
+    z-index: 1; /* Ensure content is above pseudo-elements */
+}
+
+.serene-bold-header-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8em; /* Adjusted for mobile */
+    color: #333333;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-weight: 700; /* Bold as per image */
+}
+
+.serene-description-text {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #666666;
+    margin-bottom: 30px;
+    max-width: 600px; /* Limit width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.serene-subheading-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center on mobile */
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 1em;
+    color: #666666;
+}
+
+.serene-subheading-group .fas.fa-play-circle {
+    color: #FF6B6B; /* Red color for play icon */
+    font-size: 1.5em;
+}
+
+/* Right Card Styles (Sign Up) */
+.serene-right-card {
+    flex: 1; /* Allows card to take available space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Ensure card is above pseudo-elements */
+}
+
+.serene-signup-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 350px; /* Max width for the card */
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.serene-signup-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8em;
+    color: #333333;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.serene-facebook-button {
+    background-color: #FF6B6B; /* Red color for Facebook button */
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.serene-facebook-button:hover {
+    background-color: #e05c5c;
+}
+
+.serene-or-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #aaaaaa;
+    margin: 20px 0;
+    font-size: 0.9em;
+}
+
+.serene-or-divider::before,
+.serene-or-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.serene-or-divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.serene-or-divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.serene-card-description {
+    font-size: 0.9em;
+    color: #888888;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.serene-email-button {
+    background-color: #f0f0f0; /* Light grey for email button */
+    color: #333333;
+    border: 1px solid #dddddd;
+    padding: 12px 20px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.serene-email-button:hover {
+    background-color: #e0e0e0;
+    border-color: #cccccc;
+}
+
+.serene-learn-more-link {
+    color: #FF6B6B; /* Red color for learn more link */
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.serene-learn-more-link:hover {
+    color: #e05c5c;
+}
+
+/* Footer Styles (unchanged) */
+.serene-footer {
+    background-color: #1A535C;
+    color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+.serene-social-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.serene-social-icon {
+    color: #ffffff;
+    font-size: 1.5em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.serene-social-icon:hover {
+    color: #FF6B6B;
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+    /* Navbar adjustments (unchanged) */
+    .serene-navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 30px;
+    }
+
+    .serene-logo-link {
+        margin-bottom: 0;
+        margin-right: 30px;
+    }
+
+    .serene-nav-links {
+        flex-direction: row;
+        margin: 0;
+        gap: 40px;
+        width: auto;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .serene-nav-link {
+        padding: 0;
+        text-align: left;
+        font-size: 0.95em;
+    }
+
+    .serene-nav-link::after {
+        left: 0;
+        transform: translateX(0);
+        width: 0;
+    }
+
+    .serene-nav-link:hover::after {
+        width: 100%;
+    }
+
+    .serene-primary-button {
+        margin-top: 0;
+        margin-left: 35px;
+        width: auto;
+        max-width: none;
+        padding: 10px 25px;
+        font-size: 0.9em;
+    }
+
+    /* Main Layout Desktop Adjustments */
+    .serene-main-layout {
+        flex-direction: row; /* Two columns on desktop */
+        text-align: left; /* Align text to left */
+        padding: 80px 30px;
+        gap: 60px; /* More space between columns */
+        align-items: flex-start; /* Align items to the top */
+    }
+
+    .serene-left-content {
+        text-align: left; /* Align text to left on desktop */
+    }
+
+    .serene-bold-header-title {
+        font-size: 3.8em; /* Larger title on desktop */
+    }
+
+    .serene-description-text {
+        font-size: 1.2em;
+        margin-left: 0; /* Remove auto margin for left alignment */
+        margin-right: 0;
+    }
+
+    .serene-subheading-group {
+        justify-content: flex-start; /* Align to left on desktop */
+    }
+
+    .serene-right-card {
+        align-items: flex-start; /* Align card content to left */
+    }
+
+    .serene-signup-card {
+        padding: 40px; /* More padding for card on desktop */
+    }
+}
+
+@media (min-width: 1024px) {
+    .serene-header {
+        padding: 20px 0;
+    }
+
+    .serene-bold-header-title {
+        font-size: 4.5em; /* Even larger title */
+    }
+
+    .serene-description-text {
+        font-size: 1.3em;
+    }
+}
