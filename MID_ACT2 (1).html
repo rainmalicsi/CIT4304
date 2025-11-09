@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Operations</title>
+    <style>
+        body {
+            background-color: rgba(77, 243, 255, 0.315);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            display: block;
+            width: 900px;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 24px;
+            background-color: royalblue;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: deepskyblue;
+        }
+        pre {
+            background: rgb(176, 230, 255);
+            padding: 20px;
+            display: inline-block;
+            text-align: center;
+            font-size: 60px;
+            width: 90%;
+            justify-content: center;
+            align-items: center;
+            white-space: pre-wrap;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #messageContainer {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Problem Solver</h1>
+        <div class="button-group">
+            <button id="problem1Btn">Odd or Even Sum</button>
+            <button id="problem2Btn">Highest and Lowest</button>
+            <button id="problem3Btn">Fibonacci Sequence</button>
+        </div>
+        
+        <div id="messageContainer" class="message"></div>
+        <div><h3>Output: </h3></div>
+        <pre id="outputContainer"></pre>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const problem1Btn = document.getElementById('problem1Btn');
+            const problem2Btn = document.getElementById('problem2Btn');
+            const problem3Btn = document.getElementById('problem3Btn');
+            const outputContainer = document.getElementById('outputContainer');
+            const messageContainer = document.getElementById('messageContainer');
+
+            function displayMessage(message) {
+                messageContainer.textContent = message;
+            }
+
+            function getNumberInput(promptText) {
+                let number;
+                while (true) {
+                    const input = prompt(promptText);
+                    if (input === null) {
+                        return null;
+                    }
+                    number = parseInt(input, 10);
+                    if (!isNaN(number)) {
+                        return number;
+                    }
+                    displayMessage("Please enter a valid number.");
+                }
+            }
+
+            function getFiveNumbers() {
+                const numbers = [];
+                for (let i = 0; i < 5; i++) {
+                    let number = getNumberInput(`Enter number ${i + 1} of 5:`);
+                    if (number === null) {
+                        return null;
+                    }
+                    numbers.push(number);
+                }
+                return numbers;
+            }
+
+            // PROBLEM 1: Odd or Even Sum
+            function handleOddEvenSum() {
+                displayMessage('');
+                const numbers = getFiveNumbers();
+                if (numbers === null) return;
+
+                const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+                const result = `The inputs are ${numbers.join(', ')}\nThe SUM is ${sum}. The SUM is ${sum % 2 === 0 ? 'EVEN' : 'ODD'}.`;
+                
+                outputContainer.textContent = result;
+            }
+
+            // PROBLEM 2: Highest and Lowest
+            function handleHighestLowest() {
+                displayMessage('');
+                const numbers = getFiveNumbers();
+                if (numbers === null) return;
+
+                const highest = Math.max(...numbers);
+                const lowest = Math.min(...numbers);
+                
+                const result = `The inputs are ${numbers.join(', ')}\nThe HIGHEST is ${highest}. The LOWEST is ${lowest}.`;
+                
+                outputContainer.textContent = result;
+            }
+
+            // PROBLEM 3: Fibonacci Sequence
+            function handleFibonacci() {
+                displayMessage('');
+                let n;
+                while (true) {
+                    const input = prompt("Enter a number higher than 3:");
+                    if (input === null) {
+                        return;
+                    }
+                    n = parseInt(input, 10);
+                    if (!isNaN(n) && n > 3) {
+                        break;
+                    }
+                    displayMessage("Please enter a valid number higher than 3.");
+                }
+
+                const fibSequence = [1, 1];
+                while (fibSequence.length < n) {
+                    const nextNumber = fibSequence[fibSequence.length - 1] + fibSequence[fibSequence.length - 2];
+                    fibSequence.push(nextNumber);
+                }
+
+                const result = `The input is ${n}.\nThe output is ${fibSequence.join(' ')}`;
+                outputContainer.textContent = result;
+            }
+
+            problem1Btn.addEventListener('click', handleOddEvenSum);
+            problem2Btn.addEventListener('click', handleHighestLowest);
+            problem3Btn.addEventListener('click', handleFibonacci);
+        });
+    </script>
+</body>
+</html>

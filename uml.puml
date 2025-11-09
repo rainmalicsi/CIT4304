@@ -1,0 +1,86 @@
+@startuml
+skinparam componentStyle rectangle
+
+actor "Student" as Student
+actor "Alumni" as Alumni
+actor "Faculty" as Faculty
+actor "Employee" as Employee
+actor "Parents / Guardians" as Parents
+actor "Transferee" as Transferee
+actor "Guest" as Guest
+actor "College" as College
+actor "Librarian / Head" as Librarian
+actor "Registrar" as Registrar
+actor "Admission Staff" as Admission
+actor "Cashier / Accounting" as Cashier
+actor "IT Dept" as IT
+actor "Security" as Security
+actor "Maintenance" as Maintenance
+
+rectangle "System Boundary" {
+  rectangle "Edge Devices" {
+    component Kiosk
+    component "Admin Smartphone" as AdminSmartphone
+  }
+
+  rectangle "Backend Services" {
+    component "Auth Service" as Auth
+    component "Library Service" as Library
+    component "Enrollment Service" as Enrollment
+    component "Payment Service" as Payment
+    component "Notification Service" as Notification
+    component "Admin Dashboard" as Dashboard
+    component "Orchestration Service" as Orchestration
+  }
+
+  rectangle "Data Stores" {
+    component Postgres
+    component Elasticsearch
+    component Redis
+    component "Object Storage" as S3
+  }
+}
+
+' Actors -> Edge
+Student --> Kiosk
+Alumni --> Kiosk
+Faculty --> Kiosk
+Employee --> Kiosk
+Parents --> Kiosk
+Transferee --> Kiosk
+Guest --> Kiosk
+College --> Kiosk
+
+Librarian --> AdminSmartphone
+Registrar --> AdminSmartphone
+Admission --> Kiosk
+Cashier --> AdminSmartphone
+IT --> AdminSmartphone
+Security --> AdminSmartphone
+Maintenance --> AdminSmartphone
+
+' Edge -> Backend
+Kiosk --> Auth
+AdminSmartphone --> Auth
+
+' Auth -> Services
+Auth --> Library
+Auth --> Enrollment
+Auth --> Payment
+
+' Services -> Data
+Library --> Postgres
+Library --> Elasticsearch
+
+Enrollment --> Postgres
+
+Payment --> Postgres
+Payment --> S3
+
+Notification --> Redis
+Notification --> S3
+
+Dashboard --> Postgres
+Dashboard --> Redis
+
+@enduml

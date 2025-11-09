@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maLICSI</title>
+    
+</head>
+<body>
+    <script type="text/javascript">
+    
+// DRILL 1
+
+        //IF MONTHS ARE INPUTTED
+
+        // var monthString = prompt("Enter a month (January-December):").toLowerCase();
+        // var validMonths = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var monthIndex = validMonths.indexOf(monthString);
+        // if (monthIndex >= 0 && monthIndex <= 2) {
+        //     document.write("<h1>" + monthString.charAt(0).toUpperCase() + monthString.slice(1) + " is in the 1st quarter of the year.</h1>");
+        // } else if (monthIndex >= 3 && monthIndex <= 5) {
+        //     document.write("<h1>" + monthString.charAt(0).toUpperCase() + monthString.slice(1) + " is in the 2nd quarter of the year.</h1>");
+        // } else if (monthIndex >= 6 && monthIndex <= 8) {
+        //     document.write("<h1>" + monthString.charAt(0).toUpperCase() + monthString.slice(1) + " is in the 3rd quarter of the year.</h1>");
+        // } else if (monthIndex >= 9 && monthIndex <= 11) {
+        //     document.write("<h1>" + monthString.charAt(0).toUpperCase() + monthString.slice(1) + " is in the 4th quarter of the year.</h1>");
+        // } else {
+        //     document.write("<h1>" + monthString.charAt(0).toUpperCase() + monthString.slice(1) + " is not a valid month.</h1>");
+        // }
+        
+
+        //IF NUMBERS ARE INPUTTED
+
+        // var month = prompt("Enter a month (1-12):");
+        // if (month >= 1 && month <= 3) {
+        //     document.write("<h1>Month " + month + " is in the 1st quarter of the year.</h1>");
+        // } else if (month >= 4 && month <= 6) {
+        //     document.write("<h1>Month " + month + " is in the 2nd quarter of the year.</h1>");
+        // } else if (month >= 7 && month <= 9) {
+        //     document.write("<h1>Month " + month + " is in the 3rd quarter of the year.</h1>");
+        // } else if (month >= 10 && month <= 12) {
+        //     document.write("<h1>Month " + month + " is in the 4th quarter of the year.</h1>");
+        // } else {
+        //     document.write("<h1>" + month + " is not a valid month.</h1>");
+        // }
+        
+       
+
+//DRILL 2
+   
+        var number = parseInt(prompt("Enter a number between -100 and 100:"));
+        if (number >= -100 || number <= 100) {
+            if (number < -100 || number > 100) {
+                number = parseInt(prompt("Invalid input. Please enter a number between -100 and 100:"));
+                if (number >= -100 && number <= 100) {
+                    if (number % 2 === 0) {
+                        if (number >= 0) {
+                            document.write("<h1>" + number + " is a positive even number.</h1>");
+                        } else {
+                            document.write("<h1>" + number + " is a negative even number.</h1>");
+                        }
+                    } else {
+                        document.write("<h1>" + number + " is not an even number.</h1>");
+                    }
+                }
+            }
+            else {
+                if (number >= -100 && number <= 100) {
+                    if (number % 2 === 0) {
+                        if (number >= 0) {
+                            document.write("<h1>" + number + " is a positive even number.</h1>");
+                        } else {
+                            document.write("<h1>" + number + " is a negative even number.</h1>");
+                        }
+                    } else {
+                        document.write("<h1>" + number + " is not an even number.</h1>");
+                    }
+                }
+            }
+        }
+
+        
+
+//DRILL 3   
+
+        // CONVERT INTO SWITCH STATEMENT, -100 TO 100
+        // var number = parseInt(prompt("Enter a number between -100 and 100:"));
+        // while (number < -100 || number > 100) {
+        //     number = parseInt(prompt("Invalid input. Please enter a number between -100 and 100:"));
+        //     switch (true) {
+        //     case (number >= 0 && number % 2 === 0):
+        //         document.write("<h1>" + number + " is a positive even number.</h1>");
+        //         break;
+        //     case (number < 0 && number % 2 === 0):
+        //         document.write("<h1>" + number + " is a negative even number.</h1>");
+        //         break;
+        //     default:
+        //         document.write("<h1>" + number + " is not an even number.</h1>");
+        //     }
+        // }
+               
+
+//DRILL 4
+
+        // var count = 0;
+        // do {
+        //     document.write("<p>Iteration: " + count + "</p>");
+        //     count++;
+        // } while (count < 5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // --------------------------------------------------------------------------------------------
+
+        // PRACTICE JAVASCRIPT ONLY!!! NOT A TASK
+
+        // This is a placeholder for the JavaScript code that would be included in the original file.
+        // You can add your JavaScript code here to manipulate the DOM or handle events.
+        // document.write("<h1>Hello, World!</h1>");
+        // // window.alert(2 + 2);
+        
+        // var age = 38;
+        // var clientName = "John Doe";
+
+        // document.write("<h1>Mr. " + clientName + " is " + age + " years old.</h1>");
+        // for (var count = 0; count < 5; count++) {
+        //     document.write("<p>Iteration: " + count + "</p>");
+        // }
+
+        // --------------------------------------------------------------------------------------------
+        //
+
+        // var num1, num2, product;
+
+        // num1 = prompt("Enter first number:");
+        // num2 = prompt("Enter second number:");
+
+        // product = parseInt(num1) * parseInt(num2);
+
+        // //print the result
+        // document.write("<h1>The product of " + num1 + " and " + num2 + " is: " + product + "</h1>");
+
+        // --------------------------------------------------------------------------------------------
+
+        //control structures
+        // var color = prompt("Enter a color:");
+        // if (color === "red") {
+        //     color = "red";
+        //     document.write("<h1>The color is red.</h1>");
+        // } else if (color === "green") {
+        //     color = "green";
+        // } else if (color === "blue") {
+        //     color = "blue";
+        // } else {
+        //     color = "unknown";
+        // }
+
+        //javascript comparison operators
+
+        //for loop
+    </script>
+</body>
+</html>
