@@ -9,6 +9,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Login/Role Selection Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1><i class="fas fa-project-diagram"></i> ProjectHub</h1>
+                <p>Select your role to continue</p>
+            </div>
+            <div class="role-selection">
+                <div class="role-card" data-role="leader">
+                    <div class="role-icon leader">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h2>Team Leader</h2>
+                    <p>Manage projects, assign tasks, and monitor team progress</p>
+                    <ul class="role-features">
+                        <li><i class="fas fa-check"></i> Create and manage projects</li>
+                        <li><i class="fas fa-check"></i> Assign tasks to team members</li>
+                        <li><i class="fas fa-check"></i> Monitor team progress</li>
+                        <li><i class="fas fa-check"></i> Manage team members</li>
+                        <li><i class="fas fa-check"></i> View Gantt charts</li>
+                        <li><i class="fas fa-check"></i> Full dashboard access</li>
+                    </ul>
+                    <button class="btn btn-primary role-select-btn">Continue as Leader</button>
+                </div>
+                <div class="role-card" data-role="member">
+                    <div class="role-icon member">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2>Team Member</h2>
+                    <p>Manage your tasks and track your progress</p>
+                    <ul class="role-features">
+                        <li><i class="fas fa-check"></i> View assigned tasks</li>
+                        <li><i class="fas fa-check"></i> Add personal tasks</li>
+                        <li><i class="fas fa-check"></i> Update task status</li>
+                        <li><i class="fas fa-check"></i> View your calendar</li>
+                        <li><i class="fas fa-check"></i> Track personal progress</li>
+                        <li><i class="fas fa-check"></i> View project details</li>
+                    </ul>
+                    <button class="btn btn-primary role-select-btn">Continue as Member</button>
+                </div>
+            </div>
+            <div class="login-footer">
+                <p>You can switch roles anytime from the settings</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -30,8 +77,14 @@
             <a href="#" class="nav-item" data-page="gantt">
                 <i class="fas fa-chart-bar"></i> <span>Gantt Chart</span>
             </a>
-            <a href="#" class="nav-item" data-page="team">
+            <a href="#" class="nav-item leader-only" data-page="team">
                 <i class="fas fa-users"></i> <span>Team</span>
+            </a>
+            <a href="#" class="nav-item member-only" data-page="my-tasks">
+                <i class="fas fa-clipboard-list"></i> <span>My Tasks</span>
+            </a>
+            <a href="#" class="nav-item member-only" data-page="my-progress">
+                <i class="fas fa-chart-line"></i> <span>My Progress</span>
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -59,9 +112,12 @@
                 <input type="text" placeholder="Search projects, tasks...">
             </div>
             <div class="top-bar-actions">
-                <button class="icon-btn" title="Notifications">
+                <button class="icon-btn" title="Notifications" id="notificationsBtn">
                     <i class="fas fa-bell"></i>
-                    <span class="badge">3</span>
+                    <span class="badge" id="notificationBadge">0</span>
+                </button>
+                <button class="icon-btn" title="Switch Role" id="switchRoleBtn">
+                    <i class="fas fa-exchange-alt"></i>
                 </button>
                 <button class="icon-btn" title="Settings">
                     <i class="fas fa-cog"></i>
@@ -131,7 +187,7 @@
             <div class="page" id="projects">
                 <div class="page-header">
                     <h1>Projects</h1>
-                    <button class="btn btn-primary" id="addProjectBtn">
+                    <button class="btn btn-primary leader-only" id="addProjectBtn">
                         <i class="fas fa-plus"></i> New Project
                     </button>
                 </div>
@@ -154,6 +210,75 @@
                         <button class="filter-btn" data-filter="completed">Completed</button>
                     </div>
                     <div class="tasks-list" id="tasksList"></div>
+                </div>
+            </div>
+
+            <!-- My Tasks Page (Member Only) -->
+            <div class="page" id="my-tasks">
+                <div class="page-header">
+                    <h1>My Tasks</h1>
+                    <button class="btn btn-primary" id="addMyTaskBtn">
+                        <i class="fas fa-plus"></i> Add Personal Task
+                    </button>
+                </div>
+                <div class="tasks-container">
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="todo">To Do</button>
+                        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <div class="tasks-list" id="myTasksList"></div>
+                </div>
+            </div>
+
+            <!-- My Progress Page (Member Only) -->
+            <div class="page" id="my-progress">
+                <div class="page-header">
+                    <h1>My Progress</h1>
+                    <p>Track your task completion and productivity</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="myTotalTasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="myCompletedTasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="myInProgressTasks">0</h3>
+                            <p>In Progress</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="myCompletionRate">0%</h3>
+                            <p>Completion Rate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <h3>My Task Breakdown</h3>
+                    <div id="myTaskBreakdown"></div>
                 </div>
             </div>
 
@@ -198,7 +323,7 @@
                 </div>
             </div>
 
-            <!-- Team Page -->
+            <!-- Team Page (Leader Only) -->
             <div class="page" id="team">
                 <div class="page-header">
                     <h1>Team Members</h1>
@@ -315,6 +440,9 @@
                         <select id="taskAssignee" class="select-input">
                             <option value="">Unassigned</option>
                         </select>
+                        <small class="form-hint member-only" style="display: none; color: var(--text-secondary); margin-top: 0.25rem;">
+                            <i class="fas fa-info-circle"></i> Members can only assign tasks to themselves
+                        </small>
                     </div>
                     <div class="form-group">
                         <label>Priority</label>
@@ -375,5 +503,59 @@
     <!-- Scripts -->
     <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
     <script src="js/app.js"></script>
+
+    <script>
+    // Simple zoom levels for dhtmlxGantt and handlers for Zoom In / Zoom Out buttons.
+    // Keeps an index (0..n-1) and applies the corresponding config then re-renders gantt.
+    (function(){
+        var zoomLevels = [
+            { name: 'day',    scale_unit: 'day',   date_scale: '%d %M %Y', subscales: [{unit:'hour', step:1, date:'%H'}], scale_height:50, min_column_width:30 },
+            { name: 'week',   scale_unit: 'week',  date_scale: 'Week %W, %Y', subscales: [{unit:'day', step:1, date:'%d %M'}], scale_height:50, min_column_width:50 },
+            { name: 'month',  scale_unit: 'month', date_scale: '%F %Y',      subscales: [{unit:'week', step:1, date:'W%W'}], scale_height:50, min_column_width:70 }
+        ];
+
+        var currentZoom = 1; // start at 'week' by default
+
+        function applyZoom(index){
+            index = Math.max(0, Math.min(zoomLevels.length - 1, index));
+            var lvl = zoomLevels[index];
+            // apply config to gantt
+            gantt.config.scale_unit = lvl.scale_unit;
+            gantt.config.date_scale = lvl.date_scale;
+            gantt.config.subscales = lvl.subscales;
+            gantt.config.scale_height = lvl.scale_height;
+            gantt.config.min_column_width = lvl.min_column_width;
+            currentZoom = index;
+            // re-render gantt to apply changes
+            try { gantt.render(); } catch (e) { /* if gantt not initialized yet, ignore */ }
+            // update UI (optional): disable buttons at bounds
+            var btnIn = document.getElementById('zoomIn');
+            var btnOut = document.getElementById('zoomOut');
+            if(btnIn) btnIn.disabled = (currentZoom <= 0);
+            if(btnOut) btnOut.disabled = (currentZoom >= zoomLevels.length - 1);
+        }
+
+        function zoomIn(){
+            applyZoom(currentZoom - 1);
+        }
+        function zoomOut(){
+            applyZoom(currentZoom + 1);
+        }
+
+        // Wait until DOM is ready
+        document.addEventListener('DOMContentLoaded', function(){
+            var inBtn = document.getElementById('zoomIn');
+            var outBtn = document.getElementById('zoomOut');
+            if(inBtn) inBtn.addEventListener('click', function(e){ e.preventDefault(); zoomIn(); });
+            if(outBtn) outBtn.addEventListener('click', function(e){ e.preventDefault(); zoomOut(); });
+
+            // If gantt is already initialized in app.js, apply default zoom; otherwise try after a short delay.
+            applyZoom(currentZoom);
+            // In case app.js initializes gantt asynchronously, try again shortly to ensure config is applied.
+            setTimeout(function(){ applyZoom(currentZoom); }, 500);
+        });
+    })();
+    </script>
 </body>
 </html>
+

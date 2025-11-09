@@ -4,12 +4,19 @@ const AppState = {
     tasks: [],
     teamMembers: [],
     currentDate: new Date(),
-    currentFilter: 'all'
+    currentFilter: 'all',
+    currentUser: {
+        role: null, // 'leader' or 'member'
+        id: null,
+        name: null
+    }
 };
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    checkUserRole();
+    initializeLogin();
     initializeNavigation();
     initializeModals();
     initializeDashboard();
@@ -18,8 +25,113 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCalendar();
     initializeGantt();
     initializeTeam();
+    initializeMemberFeatures();
     updateDashboard();
 });
+
+// Role Management
+function checkUserRole() {
+    const savedRole = localStorage.getItem('currentUserRole');
+    if (savedRole) {
+        AppState.currentUser.role = savedRole;
+        applyRoleUI(savedRole);
+    }
+}
+
+function applyRoleUI(role) {
+    document.body.className = `${role}-role`;
+    const userName = document.querySelector('.user-name');
+    const userRole = document.querySelector('.user-role');
+    
+    if (role === 'leader') {
+        if (userName) userName.textContent = 'Team Leader';
+        if (userRole) userRole.textContent = 'Project Manager';
+    } else if (role === 'member') {
+        if (userName) userName.textContent = 'Team Member';
+        if (userRole) userRole.textContent = 'Team Member';
+    }
+}
+
+function initializeLogin() {
+    const loginScreen = document.getElementById('loginScreen');
+    const roleButtons = document.querySelectorAll('.role-select-btn');
+    
+    // Check if user already has a role
+    if (AppState.currentUser.role) {
+        loginScreen.classList.add('hidden');
+        return;
+    }
+    
+    roleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const roleCard = btn.closest('.role-card');
+            const role = roleCard.getAttribute('data-role');
+            selectRole(role);
+        });
+    });
+    
+    // Switch role button
+    document.getElementById('switchRoleBtn')?.addEventListener('click', () => {
+        showLoginScreen();
+    });
+}
+
+function selectRole(role) {
+    AppState.currentUser.role = role;
+    localStorage.setItem('currentUserRole', role);
+    
+    // Set member ID if member role (use first member or create default)
+    if (role === 'member') {
+        if (AppState.teamMembers.length > 0) {
+            AppState.currentUser.id = AppState.teamMembers[0].id;
+            AppState.currentUser.name = AppState.teamMembers[0].name;
+        } else {
+            // Create a default member for demo
+            const defaultMember = {
+                id: 1,
+                name: 'Team Member',
+                email: 'member@example.com',
+                role: 'developer'
+            };
+            AppState.teamMembers.push(defaultMember);
+            AppState.currentUser.id = defaultMember.id;
+            AppState.currentUser.name = defaultMember.name;
+            saveData();
+        }
+    } else {
+        AppState.currentUser.id = null;
+        AppState.currentUser.name = null;
+    }
+    
+    applyRoleUI(role);
+    document.getElementById('loginScreen').classList.add('hidden');
+    
+    // Redirect to appropriate page
+    if (role === 'member') {
+        showPage('my-tasks');
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        const myTasksNav = document.querySelector('[data-page="my-tasks"]');
+        if (myTasksNav) myTasksNav.classList.add('active');
+    } else {
+        showPage('dashboard');
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        const dashboardNav = document.querySelector('[data-page="dashboard"]');
+        if (dashboardNav) dashboardNav.classList.add('active');
+    }
+    
+    updateDashboard();
+    renderTasks();
+    if (role === 'member') {
+        renderMyTasks();
+        updateMyProgress();
+    } else {
+        renderProjects();
+    }
+}
+
+function showLoginScreen() {
+    document.getElementById('loginScreen').classList.remove('hidden');
+}
 
 // Data Management
 function loadData() {
@@ -71,36 +183,7 @@ function loadData() {
                 name: 'John Doe',
                 email: 'john@example.com',
                 role: 'designer'
-            },
-
-            {
-                id: 2,
-                name: 'Rain Malicsi',
-                email: 'malicsi.raindavid@ue.edu.ph',
-                role: 'developer'
-            },
-
-            {
-                id: 3,
-                name: 'Joaquin Valiao',
-                email: 'valiao.joaquin@ue.edu.ph',
-                role: 'analyst'
-            },
-                
-            {
-                id: 4,
-                name: 'Luis Merida',
-                email: 'maerida.luis@ue.edu.ph',
-                role: 'tester'
-            },
-
-            {
-                id: 5,
-                name: 'Mikee Agbulos',
-                email: 'agbulos.mikee@ue.edu.ph',
-                role: 'tester'
             }
-
         ];
     }
 
@@ -144,6 +227,10 @@ function showPage(pageName) {
             updateGanttChart();
         } else if (pageName === 'calendar') {
             updateCalendar();
+        } else if (pageName === 'my-tasks') {
+            renderMyTasks();
+        } else if (pageName === 'my-progress') {
+            updateMyProgress();
         }
     }
 }
@@ -327,6 +414,12 @@ function closeProjectModal() {
 }
 
 function saveProject() {
+    // Restrict project creation to leaders only
+    if (AppState.currentUser.role !== 'leader') {
+        alert('Only team leaders can create projects.');
+        return;
+    }
+
     const form = document.getElementById('projectForm');
     if (!form.checkValidity()) {
         form.reportValidity();
@@ -363,6 +456,12 @@ function saveProject() {
 }
 
 function deleteProject(id) {
+    // Restrict project deletion to leaders only
+    if (AppState.currentUser.role !== 'leader') {
+        alert('Only team leaders can delete projects.');
+        return;
+    }
+
     AppState.projects = AppState.projects.filter(p => p.id !== id);
     AppState.tasks = AppState.tasks.filter(t => t.projectId !== id);
     saveData();
@@ -407,8 +506,19 @@ function renderTasks() {
     if (!container) return;
 
     let filteredTasks = AppState.tasks;
+    
+    // Filter by role: members only see their tasks, leaders see all
+    if (AppState.currentUser.role === 'member') {
+        const currentMemberId = AppState.currentUser.id || (AppState.teamMembers.length > 0 ? AppState.teamMembers[0].id : null);
+        if (currentMemberId) {
+            filteredTasks = AppState.tasks.filter(t => t.assigneeId === currentMemberId);
+        } else {
+            filteredTasks = [];
+        }
+    }
+    
     if (AppState.currentFilter !== 'all') {
-        filteredTasks = AppState.tasks.filter(t => t.status === AppState.currentFilter);
+        filteredTasks = filteredTasks.filter(t => t.status === AppState.currentFilter);
     }
 
     container.innerHTML = filteredTasks.map(task => {
@@ -468,6 +578,12 @@ window.toggleTaskStatus = function(taskId) {
         renderTasks();
         updateDashboard();
         updateGanttChart();
+        
+        // Update member-specific views if member role
+        if (AppState.currentUser.role === 'member') {
+            renderMyTasks();
+            updateMyProgress();
+        }
     }
 };
 
@@ -475,6 +591,7 @@ function openTaskModal(taskId = null) {
     const modal = document.getElementById('taskModal');
     const form = document.getElementById('taskForm');
     const title = document.getElementById('taskModalTitle');
+    const hint = document.querySelector('.form-hint.member-only');
 
     form.reset();
     document.getElementById('taskId').value = '';
@@ -484,10 +601,28 @@ function openTaskModal(taskId = null) {
     projectSelect.innerHTML = '<option value="">Select Project</option>' +
         AppState.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
 
-    // Populate assignee dropdown
+    // Populate assignee dropdown based on role
     const assigneeSelect = document.getElementById('taskAssignee');
-    assigneeSelect.innerHTML = '<option value="">Unassigned</option>' +
-        AppState.teamMembers.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+    if (AppState.currentUser.role === 'member') {
+        // Members can only assign to themselves
+        assigneeSelect.innerHTML = '<option value="">Unassigned</option>';
+        // Find current member (for demo, use first member or create a default)
+        const currentMemberId = AppState.currentUser.id || (AppState.teamMembers.length > 0 ? AppState.teamMembers[0].id : null);
+        if (currentMemberId) {
+            const member = AppState.teamMembers.find(m => m.id === currentMemberId);
+            if (member) {
+                assigneeSelect.innerHTML += `<option value="${member.id}" selected>${member.name} (Me)</option>`;
+            }
+        }
+        if (hint) hint.style.display = 'block';
+        assigneeSelect.disabled = false; // Allow them to see it's assigned to them
+    } else {
+        // Leaders can assign to anyone
+        assigneeSelect.innerHTML = '<option value="">Unassigned</option>' +
+            AppState.teamMembers.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+        if (hint) hint.style.display = 'none';
+        assigneeSelect.disabled = false;
+    }
 
     if (taskId) {
         const task = AppState.tasks.find(t => t.id === taskId);
@@ -525,6 +660,16 @@ function saveTask() {
     }
 
     const id = document.getElementById('taskId').value;
+    let assigneeId = parseInt(document.getElementById('taskAssignee').value) || null;
+    
+    // Enforce member restriction: members can only assign to themselves
+    if (AppState.currentUser.role === 'member') {
+        const currentMemberId = AppState.currentUser.id || (AppState.teamMembers.length > 0 ? AppState.teamMembers[0].id : null);
+        if (currentMemberId) {
+            assigneeId = currentMemberId; // Force assignment to current member
+        }
+    }
+    
     const task = {
         name: document.getElementById('taskName').value,
         description: document.getElementById('taskDescription').value,
@@ -532,7 +677,7 @@ function saveTask() {
         status: document.getElementById('taskStatus').value,
         startDate: document.getElementById('taskStartDate').value,
         dueDate: document.getElementById('taskDueDate').value,
-        assigneeId: parseInt(document.getElementById('taskAssignee').value) || null,
+        assigneeId: assigneeId,
         priority: document.getElementById('taskPriority').value
     };
 
@@ -554,6 +699,12 @@ function saveTask() {
     closeTaskModal();
     updateGanttChart();
     updateCalendar();
+    
+    // Update member-specific views if member role
+    if (AppState.currentUser.role === 'member') {
+        renderMyTasks();
+        updateMyProgress();
+    }
 }
 
 function deleteTask(id) {
@@ -923,5 +1074,163 @@ function renderMemberCheckboxes(containerId, selectedIds = []) {
             <span>${member.name} (${member.role})</span>
         </label>
     `).join('');
+}
+
+// Member-specific features
+function initializeMemberFeatures() {
+    // My Tasks page
+    document.getElementById('addMyTaskBtn')?.addEventListener('click', () => {
+        openTaskModal();
+    });
+    
+    // Filter buttons for My Tasks
+    const myTasksFilters = document.querySelectorAll('#my-tasks .filter-btn');
+    myTasksFilters.forEach(btn => {
+        btn.addEventListener('click', () => {
+            myTasksFilters.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            AppState.currentFilter = btn.getAttribute('data-filter');
+            renderMyTasks();
+        });
+    });
+}
+
+function renderMyTasks() {
+    const container = document.getElementById('myTasksList');
+    if (!container) return;
+
+    const currentMemberId = AppState.currentUser.id || (AppState.teamMembers.length > 0 ? AppState.teamMembers[0].id : null);
+    if (!currentMemberId) {
+        container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No tasks assigned to you yet.</p>';
+        return;
+    }
+
+    let myTasks = AppState.tasks.filter(t => t.assigneeId === currentMemberId);
+    
+    if (AppState.currentFilter !== 'all') {
+        myTasks = myTasks.filter(t => t.status === AppState.currentFilter);
+    }
+
+    if (myTasks.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No tasks found.</p>';
+        return;
+    }
+
+    container.innerHTML = myTasks.map(task => {
+        const project = AppState.projects.find(p => p.id === task.projectId);
+        const isOverdue = task.status !== 'completed' && new Date(task.dueDate) < new Date();
+
+        return `
+            <div class="task-item ${isOverdue ? 'overdue' : ''}">
+                <input type="checkbox" class="task-checkbox" ${task.status === 'completed' ? 'checked' : ''} 
+                       onchange="toggleTaskStatus(${task.id})">
+                <div class="task-content">
+                    <div class="task-title">${task.name}</div>
+                    <div class="task-meta">
+                        <span>${project?.name || 'Personal Task'}</span>
+                        <span>${formatDate(task.dueDate)}</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span class="task-badge ${task.status}">${task.status}</span>
+                    <span class="task-priority ${task.priority}">${task.priority}</span>
+                    <button class="action-btn edit-task" data-id="${task.id}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete-task" data-id="${task.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Add event listeners
+    container.querySelectorAll('.edit-task').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.getAttribute('data-id'));
+            openTaskModal(id);
+        });
+    });
+
+    container.querySelectorAll('.delete-task').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.getAttribute('data-id'));
+            if (confirm('Are you sure you want to delete this task?')) {
+                deleteTask(id);
+            }
+        });
+    });
+}
+
+function updateMyProgress() {
+    const currentMemberId = AppState.currentUser.id || (AppState.teamMembers.length > 0 ? AppState.teamMembers[0].id : null);
+    if (!currentMemberId) return;
+
+    const myTasks = AppState.tasks.filter(t => t.assigneeId === currentMemberId);
+    const total = myTasks.length;
+    const completed = myTasks.filter(t => t.status === 'completed').length;
+    const inProgress = myTasks.filter(t => t.status === 'in-progress').length;
+    const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    document.getElementById('myTotalTasks').textContent = total;
+    document.getElementById('myCompletedTasks').textContent = completed;
+    document.getElementById('myInProgressTasks').textContent = inProgress;
+    document.getElementById('myCompletionRate').textContent = `${completionRate}%`;
+
+    // Task breakdown
+    const breakdown = document.getElementById('myTaskBreakdown');
+    if (breakdown) {
+        const byStatus = {
+            'todo': myTasks.filter(t => t.status === 'todo').length,
+            'in-progress': inProgress,
+            'completed': completed
+        };
+
+        const byPriority = {
+            'high': myTasks.filter(t => t.priority === 'high').length,
+            'medium': myTasks.filter(t => t.priority === 'medium').length,
+            'low': myTasks.filter(t => t.priority === 'low').length
+        };
+
+        breakdown.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                <div>
+                    <h4 style="margin-bottom: 0.75rem;">By Status</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>To Do</span>
+                            <strong>${byStatus.todo}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>In Progress</span>
+                            <strong>${byStatus['in-progress']}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Completed</span>
+                            <strong>${byStatus.completed}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 0.75rem;">By Priority</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>High</span>
+                            <strong>${byPriority.high}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Medium</span>
+                            <strong>${byPriority.medium}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Low</span>
+                            <strong>${byPriority.low}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
 }
 
