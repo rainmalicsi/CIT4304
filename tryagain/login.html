@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ProjectHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container login-form-container">
+            <div class="login-header">
+                <h1><i class="fas fa-project-diagram"></i> ProjectHub</h1>
+                <p>Sign in to your account</p>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Enter your username" 
+                        required
+                        autocomplete="username"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password" 
+                        required
+                        autocomplete="current-password"
+                    />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login" id="loginButton">Sign In</button>
+            </form>
+
+            <div class="login-credentials">
+                <p><strong>Demo Credentials:</strong></p>
+                <table class="credentials-table">
+                    <tr>
+                        <td><strong>Leader:</strong></td>
+                        <td>user: <code>jeremiah</code> | password: <code>smith123</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Member 1:</strong></td>
+                        <td>user: <code>alice</code> | password: <code>johnson123</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Member 2:</strong></td>
+                        <td>user: <code>bob</code> | password: <code>williams123</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Member 3:</strong></td>
+                        <td>user: <code>charlie</code> | password: <code>brown123</code></td>
+                    </tr>
+                    <tr style="border-top: 2px solid var(--border-color); margin-top: 1rem; padding-top: 1rem;">
+                        <td><strong>Legacy Leader:</strong></td>
+                        <td>user: <code>leader</code> | password: <code>5678</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Legacy Member:</strong></td>
+                        <td>user: <code>member</code> | password: <code>1234</code></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="login-footer">
+                <p>Use the credentials above to test the application</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/appState.js"></script>
+    <script src="js/credentials.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

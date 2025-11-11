@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - ProjectHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Weekly</h2>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="profile.html" class="profile-link">
+        <img id="sidebarProfileImg" src="https://i.pravatar.cc/100?img=8" alt="Profile" class="nav-profile-img-large" />
+        <span id="sidebarProfileText" class="profile-text">My Profile</span>
+      </a>
+    
+      <a href="Dashboard.html" class="nav-item" data-page="dashboard">Dashboard</a>
+      <a href="projects.html" class="nav-item" data-page="projects">Projects</a>
+      <a href="tasks.html" class="nav-item" data-page="tasks">Tasks</a>
+      <a href="calendar.html" class="nav-item" data-page="calendar">Calendar</a>
+      <a href="gantt.html" class="nav-item" data-page="gantt">Gantt Chart</a>
+      <a href="team.html" class="nav-item active" data-page="team">Team</a>
+      <a href="my-tasks.html" class="nav-item member-only" data-page="my-tasks">My Tasks</a>
+      <a href="my-progress.html" class="nav-item member-only" data-page="my-progress">My Progress</a>
+      <a href="Chat.html">Group Chat</a>
+      <a href="Settings.html">Settings</a>
+      <a href="Premium.html">Go Premium</a>
+    </nav>
+
+    <div class="signout-container">
+      <button class="signout-btn"><a class="signout-btn" href="Login.html">Sign Out</a></button>
+    </div>
+  </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search projects, tasks...">
+            </div>
+            <div class="top-bar-actions">
+                <button class="icon-btn" title="Notifications" id="notificationsBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </button>
+                <button class="icon-btn" title="Switch Role" id="switchRoleBtn">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Team Page -->
+            <div class="page active" id="team">
+                <div class="page-header">
+                    <h1>Team Members</h1>
+                    <button class="btn btn-primary leader-only" id="addMemberBtn">
+                        <i class="fas fa-user-plus"></i> Add Member
+                    </button>
+                </div>
+                <div class="team-grid" id="teamGrid"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Team Member Modal -->
+    <div class="modal" id="memberModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="memberModalTitle">Add Team Member</h2>
+                <button class="modal-close" id="closeMemberModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="memberForm">
+                    <input type="hidden" id="memberId">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="memberName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="memberEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="memberRole" class="select-input">
+                            <option value="developer">Developer</option>
+                            <option value="designer">Designer</option>
+                            <option value="manager">Project Manager</option>
+                            <option value="analyst">Analyst</option>
+                            <option value="tester">Tester</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelMemberBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveMemberBtn">Add Member</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/appState.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/team.js"></script>
+</body>
+</html>

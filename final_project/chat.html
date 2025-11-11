@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly | Group Chat</title>
+    <link rel="stylesheet" href="style2.css" />
+    <script src="localStorage.js"></script>
+    <style>
+        /* === Chat Page Specific Styles === */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #f0f2f5;
+        }
+
+        .chat-header {
+            background-color: #fff;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* 1. MESSAGE FLOW: Ensures messages stack top-to-bottom and scroll correctly */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+        }
+
+        /* 2. OUTER WRAPPER: Handles the alignment of the avatar and bubble group */
+        .message-item {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        /* 3. SENT MESSAGES (Your Messages) - PUSHES ENTIRE BLOCK TO FAR RIGHT */
+        .message-item.sent {
+            display: flex;
+            flex-direction: row-reverse; /* avatar on the right */
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 100%; /* ensures full width for right alignment */
+        }
+
+        .message-item.sent .message-bubble {
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+            margin-left: auto; /* pushes the bubble to the far right */
+            border-bottom-right-radius: 2px;
+        }
+
+
+        /* 4. RECEIVED MESSAGES (Other Members) - ALIGN ENTIRE BLOCK TO FAR LEFT */
+        .message-item.received {
+            margin-right: auto;
+            justify-content: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* 5. THE BUBBLE STYLES */
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            word-wrap: break-word;
+            line-height: 1.4;
+            color: #333;
+            box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+            border-radius: 18px;
+            /* Removed flex properties, relying on margin-left: auto and text-align */
+        }
+
+        .message-bubble.sent {
+            background-color: #007bff;
+            color: white;
+            border-bottom-right-radius: 2px;
+            /* **THE FIX** Forces multiline text content (and timestamp) to align to the right edge of the bubble */
+            text-align: right;
+        }
+
+        .message-bubble.received {
+            background-color: #e4e6eb;
+            border-bottom-left-radius: 2px;
+            text-align: left;
+            /* Ensure received messages are aligned left */
+        }
+
+        .message-sender {
+            font-size: 0.8em;
+            color: #555;
+            margin-bottom: 3px;
+            display: block;
+            text-align: left;
+            /* Sender name must always be left-aligned */
+        }
+
+        .message-bubble.sent .message-sender {
+            display: none;
+        }
+
+        .message-timestamp {
+            font-size: 0.7em;
+            color: #888;
+            margin-top: 5px;
+            /* text-align: right is now inherited from .message-bubble.sent */
+            display: block;
+        }
+
+        .message-bubble.sent .message-timestamp {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Input Area */
+        .chat-input-area {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-input-area input[type="text"] {
+            flex: 1;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .chat-input-area button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Weekly</h2>
+        </div>
+        <nav class="nav-menu">
+            <a href="profile.html" class="profile-link">
+                <img id="sidebarProfileImg" src="https://i.pravatar.cc/100?img=8" alt="Profile"
+                    class="nav-profile-img-large" />
+                <span id="sidebarProfileText" class="profile-text">My Profile</span>
+            </a>
+            <a href="Dashboard.html">Dashboard</a>
+            <a href="Members.html">Team Members</a>
+            <a href="Projects.html">Projects</a>
+            <a href="Gantt.html">Gantt Chart</a>
+            <a href="Chat.html" class="active">Group Chat</a>
+            <a href="Settings.html">Settings</a>
+            <a href="Premium.html">Go Premium</a>
+        </nav>
+        <div class="signout-container">
+            <button class="signout-btn"><a class="signout-btn" href="Login.html">Sign Out</a></button>
+        </div>
+    </aside>
+
+    <div class="chat-area">
+        <div class="chat-header">
+            <h2>Team Communication</h2>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+            <button id="sendMessageBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Global Variables (Loaded from localStorage.js) ---
+        let currentUser = {};
+        let currentRole = 'member';
+        let members = [];
+        let chatMessages = []; // Array to store messages
+
+        // --- DOM Elements ---
+        const chatMessagesContainer = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+        // --- Utility Functions ---
+
+        function updateSidebarProfile() {
+            currentUser = loadData('currentUser');
+            const sidebarProfileImg = document.getElementById('sidebarProfileImg');
+            const sidebarProfileText = document.getElementById('sidebarProfileText');
+            const DEFAULT_AVATAR = "https://i.pravatar.cc/100?img=8";
+
+            if (currentUser && sidebarProfileImg && sidebarProfileText) {
+                const avatarSource = currentUser.avatarUrl || DEFAULT_AVATAR;
+                sidebarProfileImg.src = avatarSource;
+                sidebarProfileText.textContent = currentUser.name;
+            }
+        }
+
+        function getMemberInfo(memberId) {
+            return members.find(m => m.id === memberId);
+        }
+
+        // --- Core Chat Functions (FULL PAGE) ---
+
+        function renderMessages() {
+            chatMessagesContainer.innerHTML = '';
+            // Ensure messages are sorted by timestamp for correct flow (oldest top, newest bottom)
+            chatMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            chatMessages.forEach(message => {
+                const sender = getMemberInfo(message.senderId);
+                const isSent = message.senderId === currentUser.id;
+                const avatarSrc = sender ? sender.avatarUrl || "https://i.pravatar.cc/32?img=1" : "https://i.pravatar.cc/32?img=1";
+                const senderName = sender ? sender.name : 'Unknown User';
+
+                const messageItem = document.createElement('div');
+                messageItem.className = `message-item ${isSent ? 'sent' : 'received'}`;
+
+                // The message text is wrapped in a span inside the bubble
+                const messageTextContent = `<span>${message.text}</span>`;
+
+                messageItem.innerHTML = `
+                    <img src="${avatarSrc}" alt="${senderName}" class="message-avatar">
+                    <div class="message-bubble ${isSent ? 'sent' : 'received'}">
+                        ${!isSent ? `<span class="message-sender">${senderName}</span>` : ''}
+                        ${messageTextContent}
+                        <span class="message-timestamp">${new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                `;
+                chatMessagesContainer.appendChild(messageItem);
+            });
+            // Scroll to the absolute bottom of the chat
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageText = chatInput.value.trim();
+            if (messageText === '' || !currentUser || !currentUser.id) return;
+
+            const newMessage = {
+                id: Date.now(),
+                senderId: currentUser.id,
+                text: messageText,
+                timestamp: new Date().toISOString()
+            };
+
+            chatMessages.push(newMessage);
+            saveData('chatMessages', chatMessages);
+            chatInput.value = '';
+            renderMessages();
+
+            window.dispatchEvent(new Event('storage'));
+        }
+
+        // --- Initialization ---
+
+        function initializeChatPage() {
+            currentUser = loadData('currentUser');
+            currentRole = getUserRole();
+            members = loadData('members');
+            chatMessages = loadData('chatMessages') || [];
+
+            updateSidebarProfile();
+            renderMessages();
+
+            // Event Listeners
+            sendMessageBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        // Real-time update listener for chat and profile sync
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'chatMessages' || e.key === 'currentUser' || e.key === 'userRole' || e.key === 'members' || e.key === null) {
+                initializeChatPage();
+            }
+        });
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', initializeChatPage);
+    </script>
+</body>
+
+</html>

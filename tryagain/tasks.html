@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - ProjectHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Weekly</h2>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="profile.html" class="profile-link">
+        <img id="sidebarProfileImg" src="https://i.pravatar.cc/100?img=8" alt="Profile" class="nav-profile-img-large" />
+        <span id="sidebarProfileText" class="profile-text">My Profile</span>
+      </a>
+    
+      <a href="Dashboard.html" class="nav-item" data-page="dashboard">Dashboard</a>
+      <a href="projects.html" class="nav-item" data-page="projects">Projects</a>
+      <a href="tasks.html" class="nav-item active" data-page="tasks">Tasks</a>
+      <a href="calendar.html" class="nav-item" data-page="calendar">Calendar</a>
+      <a href="gantt.html" class="nav-item" data-page="gantt">Gantt Chart</a>
+      <a href="team.html" class="nav-item leader-only" data-page="team">Team</a>
+      <a href="my-tasks.html" class="nav-item member-only" data-page="my-tasks">My Tasks</a>
+      <a href="my-progress.html" class="nav-item member-only" data-page="my-progress">My Progress</a>
+      <a href="Chat.html">Group Chat</a>
+      <a href="Settings.html">Settings</a>
+      <a href="Premium.html">Go Premium</a>
+    </nav>
+
+    <div class="signout-container">
+      <button class="signout-btn"><a class="signout-btn" href="Login.html">Sign Out</a></button>
+    </div>
+  </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search projects, tasks...">
+            </div>
+            <div class="top-bar-actions">
+                <button class="icon-btn" title="Notifications" id="notificationsBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </button>
+                <button class="icon-btn" title="Switch Role" id="switchRoleBtn">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Tasks Page -->
+            <div class="page active" id="tasks">
+                <div class="page-header">
+                    <h1>Tasks</h1>
+                    <button class="btn btn-primary" id="addTaskBtn">
+                        <i class="fas fa-plus"></i> New Task
+                    </button>
+                </div>
+                <div class="tasks-container">
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="todo">To Do</button>
+                        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <div class="tasks-list" id="tasksList"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="taskModalTitle">New Task</h2>
+                <button class="modal-close" id="closeTaskModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <input type="hidden" id="taskId">
+                    <div class="form-group">
+                        <label>Task Name</label>
+                        <input type="text" id="taskName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project</label>
+                            <select id="taskProject" class="select-input" required>
+                                <option value="">Select Project</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="taskStatus" class="select-input">
+                                <option value="todo">To Do</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" id="taskStartDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" id="taskDueDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned To</label>
+                        <select id="taskAssignee" class="select-input">
+                            <option value="">Unassigned</option>
+                        </select>
+                        <small class="form-hint member-only" style="display: none; color: var(--text-secondary); margin-top: 0.25rem;">
+                            <i class="fas fa-info-circle"></i> Members can only assign tasks to themselves
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="taskPriority" class="select-input">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelTaskBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveTaskBtn">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/appState.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/tasks.js"></script>
+</body>
+</html>

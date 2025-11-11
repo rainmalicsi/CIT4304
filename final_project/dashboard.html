@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ProjectHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Weekly</h2>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="profile.html" class="profile-link">
+        <img id="sidebarProfileImg" src="https://i.pravatar.cc/100?img=8" alt="Profile" class="nav-profile-img-large" />
+        <span id="sidebarProfileText" class="profile-text">My Profile</span>
+      </a>
+    
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="gantt.html">Gantt Chart</a>
+      <a href="team.html">Team Members</a>
+      <a href="Chat.html">Group Chat</a>
+      <a href="Settings.html">Settings</a>
+      <a href="Premium.html">Go Premium</a>
+    </nav>
+
+    <div class="signout-container">
+      <button class="signout-btn"><a class="signout-btn" href="Login.html">Sign Out</a></button>
+    </div>
+  </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search projects, tasks...">
+            </div>
+            <div class="top-bar-actions">
+                <button class="icon-btn" title="Notifications" id="notificationsBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </button>
+                <button class="icon-btn" title="Switch Role" id="switchRoleBtn">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Dashboard Page -->
+            <div class="page active" id="dashboard">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's what's happening with your projects.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalProjects">0</h3>
+                            <p>Total Projects</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completedTasks">0</h3>
+                            <p>Completed Tasks</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="inProgressTasks">0</h3>
+                            <p>In Progress</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overdueTasks">0</h3>
+                            <p>Overdue</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Projects</h3>
+                        <div id="recentProjects" class="project-list"></div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Upcoming Deadlines</h3>
+                        <div id="upcomingDeadlines" class="deadline-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/appState.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
