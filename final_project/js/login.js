@@ -1,17 +1,4 @@
-// Login credentials
-const LOGIN_CREDENTIALS = {
-    member: {
-        username: 'member',
-        password: '1234',
-        role: 'member'
-    },
-    leader: {
-        username: 'leader',
-        password: '5678',
-        role: 'leader'
-    }
-};
-
+// Login handler - uses LOGIN_CREDENTIALS from appState.js
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const loginButton = document.getElementById('loginButton');
@@ -63,26 +50,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let validUser = null;
 
-        // Check against member credentials
-        if (username === LOGIN_CREDENTIALS.member.username && 
-            password === LOGIN_CREDENTIALS.member.password) {
-            validUser = LOGIN_CREDENTIALS.member;
-        }
-        // Check against leader credentials
-        else if (username === LOGIN_CREDENTIALS.leader.username && 
-                 password === LOGIN_CREDENTIALS.leader.password) {
-            validUser = LOGIN_CREDENTIALS.leader;
+        // Check against all credentials in LOGIN_CREDENTIALS from appState.js
+        for (const key in LOGIN_CREDENTIALS) {
+            const credential = LOGIN_CREDENTIALS[key];
+            if (credential.username === username && credential.password === password) {
+                validUser = credential;
+                break;
+            }
         }
 
         if (validUser) {
             // Set the user role in AppState
             AppState.currentUser.role = validUser.role;
-            AppState.currentUser.name = validUser.username;
-            AppState.currentUser.id = validUser.role === 'leader' ? 'leader1' : 'member1';
+            AppState.currentUser.name = validUser.memberName || validUser.username;
+            AppState.currentUser.id = validUser.memberId || (validUser.role === 'leader' ? 'leader1' : 'member1');
             
             // Save to localStorage
             localStorage.setItem('currentUserRole', validUser.role);
             localStorage.setItem('currentUser', JSON.stringify(AppState.currentUser));
+
+            // Initialize AppState data on successful login
+            loadData();
 
             // Redirect to dashboard
             window.location.href = 'dashboard.html';

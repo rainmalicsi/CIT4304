@@ -83,6 +83,43 @@ function initializeModals() {
     });
 }
 
+// Update the sidebar profile name and avatar using AppState.currentUser
+function updateSidebarProfile() {
+    try {
+        // Ensure AppState has been loaded
+        if (typeof loadData === 'function') loadData();
+    } catch (e) {
+        // ignore if loadData not available
+    }
+
+    const sidebarProfileImg = document.getElementById('sidebarProfileImg');
+    const sidebarProfileText = document.getElementById('sidebarProfileText');
+    const DEFAULT_AVATAR = 'https://i.pravatar.cc/100?img=8';
+
+    let user = AppState && AppState.currentUser ? AppState.currentUser : null;
+
+    // If currentUser is not set in AppState, try localStorage fallback
+    if ((!user || !user.name) && localStorage.getItem('currentUser')) {
+        try {
+            user = JSON.parse(localStorage.getItem('currentUser'));
+        } catch (e) {
+            user = user || null;
+        }
+    }
+
+    if (sidebarProfileImg) {
+        sidebarProfileImg.src = (user && user.avatarUrl) ? user.avatarUrl : DEFAULT_AVATAR;
+    }
+    if (sidebarProfileText) {
+        sidebarProfileText.textContent = (user && user.name) ? user.name : 'My Profile';
+    }
+}
+
+// Auto-run on page load so sidebar shows correct name across pages
+document.addEventListener('DOMContentLoaded', () => {
+    updateSidebarProfile();
+});
+
 // Format date for input fields
 function getToday() {
     return new Date().toISOString().split('T')[0];
